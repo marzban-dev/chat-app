@@ -1,26 +1,35 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: #ff1b1b;
+    }
+
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background: #1043c7;
+        border-radius: 8px;
+        border: 6px solid #c820c8;
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+:root {
+    --primary-color: #58c754;
+    --secondary-color: #282B33;
+    --secondary-10-color: #343A43;
+    --navbar-bg-color: #34373f;
+    --message-text-color: #f8f8f8;
+    --message-send-date-color: #efefef;
+    --message-receive-username-color: #777D89;
+    --message-receive-date-color: #777D89;
 }
