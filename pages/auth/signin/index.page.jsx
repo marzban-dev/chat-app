@@ -40,7 +40,7 @@ const Signin = () => {
             localStorage.setItem("USER_ACCESS_TOKEN", res.access);
             localStorage.setItem("USER_REFRESH_TOKEN", res.refresh);
 
-            router.push("/");
+            await router.push("/");
         } catch (e) {
             const errs = e.response.data;
             setError(errs);

@@ -1,11 +1,10 @@
 import axios from "config/axios";
-import {QueryClient} from "@tanstack/react-query";
 
-export const fetchRoom = async ({id, page, prefetch}) => {
-    const queryClient = new QueryClient();
+export const fetchRoom = async ({pageParam}) => {
+    const {id, page} = pageParam;
 
     try {
-        const limit = 40;
+        const limit = 80;
 
         const roomMessages = await axios.get(`/chatroom/messages/`, {
             params: {
@@ -16,28 +15,7 @@ export const fetchRoom = async ({id, page, prefetch}) => {
             }
         });
 
-        if (prefetch) {
-            return {
-                messages: roomMessages.data.results.reverse(),
-                unread: []
-            }
-        } else {
-            const oldData = queryClient.getQueryData(["room", id]);
-
-            let newData = {
-                messages: [],
-                unread: []
-            };
-
-            if (oldData && oldData.messages) {
-                newData.messages = [...response, ...oldData.messages]
-                newData.unread = [...oldData.unread]
-            }
-
-            newData.messages = [...response];
-
-            return newData;
-        }
+        return roomMessages.data.results.reverse();
 
     } catch (e) {
         console.log("ERROR IN ROOM =>", e);

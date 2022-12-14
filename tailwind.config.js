@@ -17,10 +17,7 @@ module.exports = {
             bodoni: ["Libre Bodoni", "sans-serif"],
         },
         extend: {
-            colors: {...generateTailwindPalette()},
-            backgroundImage: {
-                // 'explore-slider-bg': "url('/assets/img/explore-slider-bg.jpg')"
-            }
+            colors: {...generateTailwindPalette()}
         },
     },
     plugins: [

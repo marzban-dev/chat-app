@@ -31,6 +31,8 @@ const MessageInput = ({replyTo, setReplyTo}) => {
 
             animationControls.start("move")
 
+            setReplyTo(null);
+
             setMessage("");
         }
     }
@@ -52,7 +54,7 @@ const MessageInput = ({replyTo, setReplyTo}) => {
                     />
                 </div>
                 <div className="flex flex-col justify-center items-center relative">
-                    <ScrollDownButton/>
+                    <ScrollDownButton room={roomId}/>
                     <SendButton
                         disabled={message.length === 0}
                         onSendMessage={onSendMessage}

@@ -1,10 +1,11 @@
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {fetchRoom} from "api/rooms.api";
 
-export const useRoomQuery = (id, page) => {
-    const queryClient = useQueryClient();
-
-    return useQuery(["room", id], () => fetchRoom({id, page, prefetch: false}), {
+export const useRoomQuery = (id) => {
+    return useInfiniteQuery(["room", id], fetchRoom, {
+        getNextPageParam(lastPage, pages) {
+            return {id, page: pages.length + 1}
+        },
         refetchOnWindowFocus: false,
     });
 };

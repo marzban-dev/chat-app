@@ -8,6 +8,7 @@ const Theme = [
     "--navbar-bg-color",
     "--menu-bg-color",
     "--menu-overlay-color",
+    "--splash-bg-color",
     // Message colors =>
     "--message-receive-bg-color",
     "--message-send-bg-color",

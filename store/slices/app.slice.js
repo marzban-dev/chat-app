@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import themes from "constants/themes.module";
 
 const init = {
+    unread: [],
     connections: [],
     rooms: [],
 };
@@ -16,6 +17,14 @@ export const appSlice = createSlice({
                 roomId: payload.roomId
             });
         },
+        addUnreadMessage(state, {payload}) {
+            const {id, room} = payload;
+            state.unread = [...state.unread, {room, id}];
+        },
+        removeUnreadMessage(state, {payload}) {
+            const {id, room} = payload;
+            state.unread = state.unread.filter(msg => msg.room !== room && msg.id !== id);
+        },
         setTheme(state, {payload}) {
             localStorage.setItem("app-theme", payload);
 
@@ -29,6 +38,6 @@ export const appSlice = createSlice({
     },
 });
 
-export const {setTheme, setIsRoomConnected} = appSlice.actions;
+export const {setTheme, setIsRoomConnected, addUnreadMessage, removeUnreadMessage} = appSlice.actions;
 
 export default appSlice.reducer;

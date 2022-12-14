@@ -3,14 +3,15 @@ import AnglesDown from "public/icon/angles-down.svg";
 import {goToLastMessage} from "pages/components/chat/chat.utils";
 import {useEffect, useState} from "react";
 import useBottomScrollHeight from "hooks/useBottomScrollHeight";
+import UnreadCounter from "pages/components/rooms/components/room/components/unread-counter";
 
 const ScrollDownButton = ({room}) => {
     const {screenHeight, scrollBottom} = useBottomScrollHeight("#messagesContainer");
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        if (scrollBottom > screenHeight) setShow(true);
-        else setShow(false);
+        if (scrollBottom > screenHeight && !show) setShow(true);
+        if (scrollBottom < screenHeight && show) setShow(false);
     }, [scrollBottom]);
 
     const scrollToDown = () => {
@@ -44,12 +45,13 @@ const ScrollDownButton = ({room}) => {
                 {show && (
                     <motion.button
                         onClick={scrollToDown}
-                        className="w-[35px] h-[35px] flex justify-center items-center rounded-full bg-message-down-button shadow-lg hover:bg-message-down-button-hover transition-colors"
+                        className="w-[35px] h-[35px] flex justify-center items-center rounded-full bg-message-down-button shadow-lg hover:bg-message-down-button-hover transition-colors relative"
                         variants={buttonVariants}
                         initial="hide"
                         animate="show"
                         exit="hide"
                     >
+                        <UnreadCounter room={room} fab/>
                         <AnglesDown className="w-[12px] fill-message-down-button-icon translate-x-[-0.5px]"/>
                     </motion.button>
                 )}

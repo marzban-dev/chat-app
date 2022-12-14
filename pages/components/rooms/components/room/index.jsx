@@ -9,14 +9,15 @@ const Room = ({id, name, index}) => {
     const router = useRouter();
     const isRoomActive = router.query.r === String(id);
     const {data: room} = useRoomQuery(id, 1);
-    const showMobileUnreadCounter = useMediaQuery({ query: "(max-width: 899px)" });
+    const showMobileUnreadCounter = useMediaQuery({query: "(max-width: 899px)"});
 
     const navigateToRoom = () => {
         router.push(`/?r=${id}`, null, {shallow: true})
     }
 
     const lastMessage = useMemo(() => {
-        if (room.messages.length !== 0) return room.messages[room.messages.length - 1];
+        const firstPage = room.pages[0];
+        if (firstPage.length !== 0) return firstPage[firstPage.length - 1];
         return null;
     }, [room]);
 
@@ -60,7 +61,7 @@ const Room = ({id, name, index}) => {
                             <span className="text-room-last-msg-writer">{lastMessage && lastMessage.owner.username + " : "}</span>
                             {lastMessage ? lastMessage.content : "No message sent"}
                         </span>
-                        <UnreadCounter room={room}/>
+                        <UnreadCounter room={id}/>
                     </div>
                 </div>
             </div>

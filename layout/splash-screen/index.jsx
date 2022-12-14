@@ -38,7 +38,7 @@ const SplashScreen = ({show, title}) => {
                     initial={false}
                     animate="show"
                     exit="hide"
-                    className="[position:fixed;] w-full h-screen bg-secondary-10 z-[100] top-0 left-0 flex justify-center items-center flex-col gap-4"
+                    className="[position:fixed;] w-full h-screen bg-splash-bg z-[100] top-0 left-0 flex justify-center items-center flex-col gap-4"
                 >
                     <Logo className="scale-150"/>
                     {title && (

@@ -2,7 +2,7 @@ import SendIcon from "public/icon/paper-plane-top.svg";
 import {motion} from "framer-motion";
 import classNames from "classnames";
 
-const SendButton = ({onSendMessage, disabled, animationControls, setReplyTo}) => {
+const SendButton = ({onSendMessage, disabled, animationControls}) => {
 
     const iconClasses = classNames({
         "w-[20px] translate-x-0.5 transition-colors": 1,
@@ -19,7 +19,6 @@ const SendButton = ({onSendMessage, disabled, animationControls, setReplyTo}) =>
     const onClick = () => {
         onSendMessage()
         animationControls.start("move");
-        setReplyTo(null);
         const messageInput = document.querySelector("#message-input");
         messageInput.focus();
     };

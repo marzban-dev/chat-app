@@ -49,11 +49,12 @@ export const getServerSideProps = async (context) => {
     const rooms = queryClient.getQueryData(["rooms"]);
 
     for (const room of rooms) {
-        await queryClient.prefetchQuery(["room", room.id], async () => {
+        await queryClient.prefetchInfiniteQuery(["room", room.id], async () => {
             return await fetchRoom({
-                id: room.id,
-                page: 1,
-                prefetch: true
+                pageParam: {
+                    id: room.id,
+                    page: 1
+                }
             });
         });
     }

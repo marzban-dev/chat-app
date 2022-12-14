@@ -5,9 +5,9 @@ import XIcon from "public/icon/x.svg";
 const ReplyTo = ({messageInputHeight, replyTo, setReplyTo}) => {
     const router = useRouter();
     const roomId = Number(router.query.r);
-    const {data: room} = useRoomQuery(roomId, 1);
+    const {data: room} = useRoomQuery(roomId);
 
-    const repliedMessage = room.messages.find(message => message.id === replyTo);
+    const repliedMessage = room.pages.flat().find(message => message.id === replyTo);
 
     const onCloseClick = () => {
         setReplyTo(null);

@@ -15,26 +15,27 @@ const Chat = ({showRoomsMenu}) => {
     const user = useSelector(state => state.auth.user);
 
     const containerClasses = classNames({
-        "w-full min-[700px]:w-[calc(100%_-_90px)] min-[900px]:w-[calc(100%_-_350px)] h-screen bg-secondary flex flex-col justify-start items-center transition-all" : 1,
-        "translate-x-[50px]" : showRoomsMenu,
-        "translate-x-0" : !showRoomsMenu
+        "w-full min-[700px]:w-[calc(100%_-_90px)] min-[900px]:w-[calc(100%_-_350px)] h-screen bg-secondary flex flex-col justify-start items-center transition-all": 1,
+        "translate-x-[50px]": showRoomsMenu,
+        "translate-x-0": !showRoomsMenu
     });
 
     return (
         <section className={containerClasses}>
             {roomId && (
                 <div className="w-full h-full">
-                    {/*<InfiniteScroll*/}
-                    {/*    next={}*/}
-                    {/*    hasMore={}*/}
-                    {/*    loader={}*/}
-                    {/*    dataLength={}*/}
-                    {/*>*/}
-                    <Messages page={page} setReplyTo={setReplyTo} replyTo={replyTo}/>
-                    {/*</InfiniteScroll>*/}
+                    <Messages
+                        page={page}
+                        setReplyTo={setReplyTo}
+                        replyTo={replyTo}
+                        setPage={setPage}
+                    />
 
                     {user && user !== "unauthorized" ? (
-                        <MessageInput replyTo={replyTo} setReplyTo={setReplyTo}/>
+                        <MessageInput
+                            replyTo={replyTo}
+                            setReplyTo={setReplyTo}
+                        />
                     ) : (
                         <RedirectToLogin/>
                     )}
