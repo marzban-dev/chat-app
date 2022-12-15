@@ -5,9 +5,9 @@ const FormContainer = ({initial, schema, onSubmit, title, children, serverErrors
 
     const renderErrors = () => {
         if (serverErrors) {
-            return Object.values(serverErrors).map((errors) => {
+            return Object.values(serverErrors).map((errors, index) => {
                 return (
-                    <div className="text-[#F15B5B] text-[16px] font-medium flex justify-start items-center px-4">
+                    <div className="text-[#F15B5B] text-[16px] font-medium flex justify-start items-center px-4" key={index}>
                         {errors[0]}
                     </div>
                 )

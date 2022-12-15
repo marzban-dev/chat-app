@@ -71,7 +71,7 @@ const Messages = ({page, setReplyTo, setPage}) => {
 
             if (typeof message === "string") {
                 return (
-                    <div className="flex justify-center items-center text-white w-full py-4 gap-3">
+                    <div className="flex justify-center items-center text-white w-full py-4 gap-3" key={index}>
                         <div className="w-full bg-secondary-10 h-[2px]"/>
                         <span className="whitespace-nowrap">{message}</span>
                         <div className="w-full bg-secondary-10 h-[2px]"/>
@@ -84,7 +84,6 @@ const Messages = ({page, setReplyTo, setPage}) => {
             const props = {
                 id,
                 user: owner.username,
-                key: id,
                 text: content,
                 date: created_date,
                 reply: reply_to,
@@ -95,6 +94,7 @@ const Messages = ({page, setReplyTo, setPage}) => {
             return (
                 <Message
                     {...props}
+                    key={id}
                     setReplyTo={setReplyTo}
                     messagesLength={messages.length}
                 />

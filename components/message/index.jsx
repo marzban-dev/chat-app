@@ -87,7 +87,6 @@ const Message = ({id, user, text, date, reply, room, index, messagesLength, setR
 
     return (
         <motion.div
-            key={id}
             ref={messageRef}
             variants={messageVariants}
             initial="hide"
