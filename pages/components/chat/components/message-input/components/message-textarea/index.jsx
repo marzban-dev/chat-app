@@ -26,6 +26,7 @@ const MessageTextarea = ({message, setMessage, onSendMessage, setMessageInputHei
             value={message}
             maxRows={5}
             type="text"
+            autoFocus
         />
     );
 }

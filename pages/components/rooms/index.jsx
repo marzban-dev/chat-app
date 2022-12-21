@@ -20,7 +20,16 @@ const Rooms = ({showRoomsMenu, setShowRoomsMenu}) => {
     }, [isDraggedOnAxis]);
 
     const renderRooms = () => {
-        return rooms.map((room, index) => <Room {...room} index={index} key={room.id}/>);
+        return rooms.map((room, index) => {
+            return (
+                <Room
+                    {...room}
+                    setShowRoomsMenu={setShowRoomsMenu}
+                    index={index}
+                    key={room.id}
+                />
+            );
+        });
     }
 
     const containerClasses = classNames({
@@ -34,11 +43,12 @@ const Rooms = ({showRoomsMenu, setShowRoomsMenu}) => {
             <AnimatePresence>
                 {showRoomsMenu && (
                     <motion.div
-                        className="min-[700px]:hidden backdrop-blur-md bg-menu-overlay w-full h-screen z-[50] fixed top-0"
+                        className="min-[700px]:hidden bg-menu-overlay w-full h-screen z-[50] fixed top-0"
                         initial={{opacity: 0}}
                         animate={{opacity: 1}}
                         exit={{opacity: 0}}
                         transition={{ease: "linear", duration: 0.15}}
+                        onClick={() => setShowRoomsMenu(!showRoomsMenu)}
                     />
                 )}
             </AnimatePresence>

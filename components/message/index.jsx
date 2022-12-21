@@ -1,18 +1,19 @@
 import classNames from "classnames";
-import {motion} from "framer-motion";
-import {useEffect, useMemo, useRef} from "react";
+import {motion, useMotionValue} from "framer-motion";
+import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {removeUnreadMessage} from "store/slices/app.slice";
-import {useRoomQuery} from "hooks/useRoomQuery";
 import HeadInfo from "./components/head-info";
 import MessageReply from "./components/message-reply";
 import MessageText from "./components/message-text";
+import ReplyProgress from "./components/reply-progress";
 
-const Message = ({id, user, text, date, reply, room, index, messagesLength, setReplyTo}) => {
+const Message = ({id, user, text, date, reply, room, index, messagesLength, setReplyTo, replyTo}) => {
     const dispatch = useDispatch();
     const messageRef = useRef(null)
     const authedUser = useSelector(state => state.auth.user);
     const pos = authedUser?.username === user ? "right" : "left";
+    const dragValue = useMotionValue(0);
 
     // ****
     // Check if message inside viewport or not,
@@ -38,16 +39,20 @@ const Message = ({id, user, text, date, reply, room, index, messagesLength, setR
         return () => messagesContainer.removeEventListener("scroll", isMessageInsideViewport);
     }, [])
 
-    const setReplyId = () => {
-        if (authedUser && authedUser !== "unauthorized") {
-            setReplyTo(id);
-            const messageInput = document.querySelector("#message-input");
-            messageInput.focus();
-        }
-    };
+    const onMotionUpdate = (latest) => {
+        dragValue.set(Math.abs(latest.x));
+    }
+
+    const onMessageDragStart = (e, info) => {
+        // console.log(info);
+    }
+
+    const onMessageDragEnd = (e, info) => {
+        // console.log(info);
+    }
 
     const containerClasses = classNames({
-        "flex flex-col justify-start items-start max-w-[320px] min-[500px]:max-w-[400px] min-[1000px]:max-w-[500px]": 1,
+        "max-w-[320px] min-[500px]:max-w-[400px] min-[1000px]:max-w-[500px]": 1,
         "self-end": pos === "right",
         "cursor-pointer": authedUser && authedUser !== "unauthorized"
     })
@@ -87,27 +92,43 @@ const Message = ({id, user, text, date, reply, room, index, messagesLength, setR
 
     return (
         <motion.div
+            id={id}
+            drag="x"
             ref={messageRef}
             variants={messageVariants}
             initial="hide"
             animate="show"
             className={containerClasses}
-            onClick={setReplyId}
-            id={id}
+            dragConstraints={{left: 0, right: 0}}
+            dragElastic={{left: 0.4}}
+            dragTransition={{ bounceStiffness: 200, bounceDamping: 25 }}
+            onDragStart={onMessageDragStart}
+            onDragEnd={onMessageDragEnd}
+            onUpdate={onMotionUpdate}
         >
+
             <HeadInfo
                 date={date}
                 pos={pos}
                 user={user}
             />
-            <div className={messageBoxClasses}>
-                <MessageReply
-                    room={room}
-                    reply={reply}
-                />
-                <MessageText
-                    text={text}
-                    reply={reply}
+            <div className="flex justify-start items-center relative">
+                <div className={messageBoxClasses}>
+                    <MessageReply
+                        room={room}
+                        reply={reply}
+                    />
+                    <MessageText
+                        text={text}
+                        reply={reply}
+                    />
+                </div>
+                <ReplyProgress
+                    id={id}
+                    dragValue={dragValue}
+                    setReplyTo={setReplyTo}
+                    replyTo={replyTo}
+                    user={authedUser}
                 />
             </div>
         </motion.div>

@@ -3,14 +3,13 @@ import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import Messages from "./components/messages";
 import MessageInput from "./components/message-input";
-import InfiniteScroll from "react-infinite-scroll-component";
 import RedirectToLogin from "pages/components/chat/components/redirect-to-login";
 import classNames from "classnames";
+import BarsIcon from "public/icon/bars.svg";
 
-const Chat = ({showRoomsMenu}) => {
+const Chat = ({showRoomsMenu, setShowRoomsMenu}) => {
     const router = useRouter();
     const roomId = router.query.r ? Number(router.query.r) : null;
-    const [page, setPage] = useState(1);
     const [replyTo, setReplyTo] = useState(null);
     const user = useSelector(state => state.auth.user);
 
@@ -22,13 +21,19 @@ const Chat = ({showRoomsMenu}) => {
 
     return (
         <section className={containerClasses}>
+            <div className="fixed left-0 top-0 z-50 min-[700px]:hidden">
+                <button
+                    className="p-4 bg-gradient-to-br from-secondary to-transparent"
+                    onClick={() => setShowRoomsMenu(!showRoomsMenu)}
+                >
+                    <BarsIcon className="fill-white w-[30px]"/>
+                </button>
+            </div>
             {roomId && (
                 <div className="w-full h-full">
                     <Messages
-                        page={page}
                         setReplyTo={setReplyTo}
                         replyTo={replyTo}
-                        setPage={setPage}
                     />
 
                     {user && user !== "unauthorized" ? (

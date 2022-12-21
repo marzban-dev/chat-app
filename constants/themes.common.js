@@ -10,6 +10,8 @@ const Theme = [
     "--menu-overlay-color",
     "--splash-bg-color",
     // Message colors =>
+    "--message-reply-progress-active-color",
+    "--message-reply-progress-idle-color",
     "--message-receive-bg-color",
     "--message-send-bg-color",
     "--message-text-color",

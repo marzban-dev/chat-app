@@ -33,7 +33,7 @@ export default function Home() {
 
             <Rooms showRoomsMenu={showRoomsMenu} setShowRoomsMenu={setShowRoomsMenu}/>
 
-            <Chat showRoomsMenu={showRoomsMenu}/>
+            <Chat showRoomsMenu={showRoomsMenu} setShowRoomsMenu={setShowRoomsMenu}/>
 
             {/*<SplashScreen show={!isConnected || !user} title="Loading"/>*/}
         </div>

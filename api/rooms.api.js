@@ -1,5 +1,6 @@
 import axios from "config/axios";
 
+// Fetch messages of a room
 export const fetchRoom = async ({pageParam}) => {
     const {id, page} = pageParam;
 
@@ -19,14 +20,17 @@ export const fetchRoom = async ({pageParam}) => {
 
     } catch (e) {
         console.log("ERROR IN ROOM =>", e);
+        return [];
     }
 };
 
+// Fetch list of all rooms
 export const fetchRooms = async () => {
     try {
         const response = await axios.get("/chatroom/rooms/");
         return response.data.results;
     } catch (e) {
         console.log("ERROR IN ROOMS =>", e);
+        return [];
     }
 };

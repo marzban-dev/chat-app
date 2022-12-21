@@ -1,1 +1,0 @@
-self.addEventListener("push",(function(o){const t=o.data?o.data.text():"no payload";o.waitUntil(self.registration.showNotification("ServiceWorker Cookbook",{body:t}))}));

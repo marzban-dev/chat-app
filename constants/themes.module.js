@@ -23,9 +23,11 @@ const ThemesCommon = {
         "--title-color": "#f8f8f8",
         "--navbar-bg-color": "#242424",
         "--menu-bg-color": "#242424",
-        "--menu-overlay-color": "rgba(24,24,25,0.4)",
+        "--menu-overlay-color": "rgba(24,24,25,0.8)",
         "--splash-bg-color": "rgba(27,27,27,0.5)",
         // Message colors =>
+        "--message-reply-progress-active-color": "#2b5b47",
+        "--message-reply-progress-idle-color": "#35373B",
         "--message-receive-bg-color": "#35373B",
         "--message-send-bg-color": "#232427",
         "--message-text-color": "#f8f8f8",

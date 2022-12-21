@@ -1,8 +1,6 @@
 import webPush from "web-push";
 
 const NotificationPage = (req, res) => {
-    console.log(req.body);
-
     webPush.setVapidDetails(
         "http://localhost:3000/",
         process.env.VAPID_PUBLIC_KEY,

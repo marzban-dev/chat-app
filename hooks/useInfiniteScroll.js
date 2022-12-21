@@ -22,9 +22,9 @@ const useInfiniteScroll = ({scrollableContainerQuery, nextCallback, isLoading, r
         }
     }, [isLoading]);
 
-    return {
-        setHasMore
-    };
+    // return {
+    //     setHasMore
+    // };
 }
 
 export default useInfiniteScroll;

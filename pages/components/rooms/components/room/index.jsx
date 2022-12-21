@@ -5,14 +5,15 @@ import {useMemo} from "react";
 import UnreadCounter from "./components/unread-counter";
 import {useMediaQuery} from "react-responsive";
 
-const Room = ({id, name, index}) => {
+const Room = ({id, name, setShowRoomsMenu, index}) => {
     const router = useRouter();
     const isRoomActive = router.query.r === String(id);
     const {data: room} = useRoomQuery(id, 1);
     const showMobileUnreadCounter = useMediaQuery({query: "(max-width: 899px)"});
 
     const navigateToRoom = () => {
-        router.push(`/?r=${id}`, null, {shallow: true})
+        setShowRoomsMenu(old => !old);
+        router.push(`/?r=${id}`, null, {shallow: true});
     }
 
     const lastMessage = useMemo(() => {
